@@ -6,9 +6,10 @@ namespace AteroidsECS.Components
 {
     public struct MoveComponent : IMoveComponent
     {
-        public Rigidbody2D Rigidbody { get; private set; }
         public float Speed { get; private set; }
         public float RotateSpeed { get; private set; }
+        
+        private Rigidbody2D Rigidbody { get; set; }
 
         public void Init(Rigidbody2D rigidbody, float speed, float rotateSpeed)
         {
