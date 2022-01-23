@@ -6,11 +6,6 @@ namespace AteroidsECS.Components
 {
     public struct MoveComponent : IMoveComponent
     {
-        public float Speed { get; private set; }
-        public float RotateSpeed { get; private set; }
-        
-        private Rigidbody2D Rigidbody { get; set; }
-
         public void Init(Rigidbody2D rigidbody, float speed, float rotateSpeed)
         {
             if (rigidbody == null || speed < 0 || rotateSpeed < 0)
@@ -20,6 +15,12 @@ namespace AteroidsECS.Components
             Speed = speed;
             RotateSpeed = rotateSpeed;
         }
+
+        public float Speed { get; private set; }
+
+        public float RotateSpeed { get; private set; }
+
+        private Rigidbody2D Rigidbody { get; set; }
 
         public void Move(float direction) => Rigidbody.AddForce(Rigidbody.transform.up * direction * Speed, ForceMode2D.Force);
 

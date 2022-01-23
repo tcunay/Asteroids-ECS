@@ -12,17 +12,18 @@ namespace AteroidsECS.Systems.Player
     {
         private EcsWorld _world;
         private PlayerData _data;
-        private PlayerSpawnPoint _point;
-        
+        private SpawnPrefab<Rigidbody2D> _spawnData;
+
         public void Init()
         {
             var playerEntity = _world.NewEntity();
-            
-            Rigidbody2D player = PlayerFactory.Create(_data.Prefab, _point.transform);
+
+            Rigidbody2D player = PlayerFactory.Create(_spawnData);
 
             playerEntity.Get<PlayerComponent>().Init(player.gameObject);
-            playerEntity.Get<InputComponent>();
+            playerEntity.Get<MoveInputComponent>();
             playerEntity.Get<MoveComponent>().Init(player, _data.MoveSpeed, _data.RotateSpeed);
+            playerEntity.Get<PlayerShootComponent>().Init("BulletWeapon", "LaserWeapon");
         }
     }
 }

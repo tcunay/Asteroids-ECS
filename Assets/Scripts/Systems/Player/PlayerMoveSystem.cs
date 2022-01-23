@@ -8,7 +8,6 @@ namespace AteroidsECS.Systems.Player
     public class PlayerMoveSystem<TMoveComponent, TInputComponent>
         : IEcsRunSystem where TMoveComponent : struct, IMoveComponent where TInputComponent : struct, IDirection
     {
-        private EcsWorld _world;
         private EcsFilter<TMoveComponent, TInputComponent, PlayerComponent> _filter;
 
         public void Run()

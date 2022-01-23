@@ -1,6 +1,8 @@
 using UnityEngine;
 using Leopotam.Ecs;
 using AteroidsECS.Components;
+using AteroidsECS.Components.Player;
+using AteroidsECS.Factories;
 using AteroidsECS.ScriptableObjects;
 using AteroidsECS.Systems.Player;
 
@@ -19,10 +21,14 @@ namespace AteroidsECS.MonoBehaviours
         private void Init()
         {
             _world = new EcsWorld();
+
+            _initSystems = new EcsSystems(_world).Add(new PlayerInitSystem()).Inject(_playerData)
+                .Inject(new SpawnPrefab<Rigidbody2D>(_playerData.Prefab, _playerSpawnPoint.transform.position,
+                    _playerSpawnPoint.transform.rotation));
             
-            _initSystems = new EcsSystems(_world).Add(new PlayerInitSystem()).Inject(_playerData).Inject(_playerSpawnPoint);
-            _updateSystems = new EcsSystems(_world).Add(new PlayerInputSystem());
-            _fixedUpdateSystems = new EcsSystems(_world).Add(new PlayerMoveSystem<MoveComponent, InputComponent>());
+            _updateSystems = new EcsSystems(_world).Add(new PlayerInputSystem()).Add(new PlayerShootSystem())
+                .OneFrame<FirstWeaponEvent>().OneFrame<SecondWeaponEvent>();
+            _fixedUpdateSystems = new EcsSystems(_world).Add(new PlayerMoveSystem<MoveComponent, MoveInputComponent>());
             
             _initSystems.Init();
             _updateSystems.Init();
@@ -53,10 +59,10 @@ namespace AteroidsECS.MonoBehaviours
 
         private void OnDestroy()
         {
-            _initSystems.Destroy();
-            _updateSystems.Destroy();
-            _fixedUpdateSystems.Destroy();
-            _world.Destroy();
+            _initSystems?.Destroy();
+            _updateSystems?.Destroy();
+            _fixedUpdateSystems?.Destroy();
+            _world?.Destroy();
         }
     }
 }

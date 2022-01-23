@@ -5,9 +5,9 @@ namespace AteroidsECS.Factories
 {
     public static class PlayerFactory
     {
-        public static T Create<T>(T prefab , Transform spawnPoint) where T : Object
+        public static T Create<T>(SpawnPrefab<T> spawnData) where T : Object
         {
-            return Object.Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+            return Object.Instantiate(spawnData.Prefab, spawnData.Position, spawnData.Rotation);
         }
     }
 }

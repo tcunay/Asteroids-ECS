@@ -2,7 +2,7 @@
 
 namespace AteroidsECS.Components
 {
-    public struct InputComponent : IDirection
+    public struct MoveInputComponent : IDirection
     {
         public float MoveDirection { get; private set; }
         public float RotateDirection { get; private set; }
