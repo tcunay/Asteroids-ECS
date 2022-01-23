@@ -22,7 +22,7 @@ namespace AteroidsECS.Systems.Player
 
             playerEntity.Get<PlayerComponent>().Init(player.gameObject);
             playerEntity.Get<MoveInputComponent>();
-            playerEntity.Get<MoveComponent>().Init(player, _data.MoveSpeed, _data.RotateSpeed);
+            playerEntity.Get<MoveComponent>().Init(player, _data);
             playerEntity.Get<PlayerShootComponent>().Init("BulletWeapon", "LaserWeapon");
         }
     }

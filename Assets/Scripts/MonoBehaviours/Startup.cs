@@ -22,9 +22,11 @@ namespace AteroidsECS.MonoBehaviours
         {
             _world = new EcsWorld();
 
+            var playerPrefab = new SpawnPrefab<Rigidbody2D>(_playerData.Prefab, _playerSpawnPoint.transform.position,
+                _playerSpawnPoint.transform.rotation);
+
             _initSystems = new EcsSystems(_world).Add(new PlayerInitSystem()).Inject(_playerData)
-                .Inject(new SpawnPrefab<Rigidbody2D>(_playerData.Prefab, _playerSpawnPoint.transform.position,
-                    _playerSpawnPoint.transform.rotation));
+                .Inject(playerPrefab);
             
             _updateSystems = new EcsSystems(_world).Add(new PlayerInputSystem()).Add(new PlayerShootSystem())
                 .OneFrame<FirstWeaponEvent>().OneFrame<SecondWeaponEvent>();
