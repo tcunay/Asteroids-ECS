@@ -1,8 +1,5 @@
 using UnityEngine;
 using Leopotam.Ecs;
-using AteroidsECS.Components;
-using AteroidsECS.Components.Player;
-using AteroidsECS.Factories;
 using AteroidsECS.ScriptableObjects;
 using AteroidsECS.Systems.Player;
 
@@ -22,15 +19,11 @@ namespace AteroidsECS.MonoBehaviours
         {
             _world = new EcsWorld();
 
-            var playerPrefab = new SpawnPrefab<Rigidbody2D>(_playerData.Prefab, _playerSpawnPoint.transform.position,
-                _playerSpawnPoint.transform.rotation);
+            PlayerSystems playerSystems = new PlayerSystems(_world, _playerData, _playerSpawnPoint);
 
-            _initSystems = new EcsSystems(_world).Add(new PlayerInitSystem()).Inject(_playerData)
-                .Inject(playerPrefab);
-            
-            _updateSystems = new EcsSystems(_world).Add(new PlayerInputSystem()).Add(new PlayerShootSystem())
-                .OneFrame<FirstWeaponEvent>().OneFrame<SecondWeaponEvent>();
-            _fixedUpdateSystems = new EcsSystems(_world).Add(new PlayerMoveSystem<MoveComponent, MoveInputComponent>());
+            _initSystems = new EcsSystems(_world).Add(playerSystems.InitSystems);
+            _updateSystems = new EcsSystems(_world).Add(playerSystems.UpdateSystems);
+            _fixedUpdateSystems = new EcsSystems(_world).Add(playerSystems.FixedUpdateSystems);
             
             _initSystems.Init();
             _updateSystems.Init();
