@@ -1,25 +1,31 @@
-﻿using UnityEngine;
-using Leopotam.Ecs;
-using AteroidsECS.Components.Abstract;
-using AteroidsECS.Components.Player;
+﻿using Leopotam.Ecs;
+using AteroidsECS.Components;
+using AteroidsECS.Events.Player.Move;
 
 namespace AteroidsECS.Systems.Player
 {
-    public class PlayerMoveSystem<TMoveComponent, TInputComponent>
-        : IEcsRunSystem where TMoveComponent : struct, IMoveComponent where TInputComponent : struct, IDirection
+    public class PlayerMoveSystem : IEcsRunSystem
     {
-        private EcsFilter<TMoveComponent, TInputComponent, PlayerComponent> _filter;
+        private EcsFilter<MoveComponent> _filter;
+        private EcsFilter<MoveEvent> _moveEventFilter;
 
         public void Run()
+        {
+            foreach (var i in _moveEventFilter)
+            {
+                ref var moveEvent = ref _moveEventFilter.Get1(i);
+                
+                TryMove(moveEvent);
+            }
+        }
+
+        private void TryMove(IMoveEvent moveEvent)
         {
             foreach (var i in _filter)
             {
                 ref var moveComponent = ref _filter.Get1(i);
-                ref var directionComponent = ref _filter.Get2(i);
-
-                moveComponent.Move(Mathf.Clamp01(directionComponent.MoveDirection));
-
-                moveComponent.Rotate(-directionComponent.RotateDirection);
+                moveComponent.Move(moveEvent.MoveValue);
+                moveComponent.Rotate(moveEvent.RotateValue);
             }
         }
     }

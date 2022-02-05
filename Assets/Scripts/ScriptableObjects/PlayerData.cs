@@ -28,7 +28,7 @@ namespace AteroidsECS.ScriptableObjects
         }
 
         public Rigidbody2D Prefab => _prefab;
-        public float MoveSpeed => _moveSpeed;
-        public float RotateSpeed => _rotateSpeed;
+        public float MoveValue => _moveSpeed;
+        public float RotateValue => _rotateSpeed;
     }
 }

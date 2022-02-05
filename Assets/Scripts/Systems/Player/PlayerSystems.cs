@@ -1,25 +1,25 @@
 ﻿using UnityEngine;
 using Leopotam.Ecs;
-using AteroidsECS.Components;
-using AteroidsECS.Components.Player;
+using AteroidsECS.Events.Player.Move;
+using AteroidsECS.Events.Player.Shoot;
 using AteroidsECS.Factories;
 using AteroidsECS.MonoBehaviours;
 using AteroidsECS.ScriptableObjects;
 
 namespace AteroidsECS.Systems.Player
 {
-    public class PlayerSystems
+    public class PlayerSystems : IEntitySystems
     {
         public PlayerSystems(EcsWorld world, PlayerData playerData, PlayerSpawnPoint playerSpawnPoint)
         {
             var playerPrefab = new SpawnPrefab<Rigidbody2D>(playerData.Prefab, playerSpawnPoint.transform.position,
                 playerSpawnPoint.transform.rotation);
 
-            InitSystems = new EcsSystems(world).Add(new PlayerInitSystem()).Inject(playerData)
-                .Inject(playerPrefab);
+            InitSystems = new EcsSystems(world).Add(new PlayerInitSystem()).Inject(playerData).Inject(playerPrefab);
             UpdateSystems = new EcsSystems(world).Add(new PlayerInputSystem()).Add(new PlayerShootSystem())
-                .OneFrame<FirstWeaponEvent>().OneFrame<SecondWeaponEvent>();
-            FixedUpdateSystems = new EcsSystems(world).Add(new PlayerMoveSystem<MoveComponent, MoveInputComponent>());
+                .OneFrame<FirstWeaponShootEvent>().OneFrame<SecondWeaponShootEvent>();
+            FixedUpdateSystems = new EcsSystems(world).Add(new PlayerMoveSystem())
+                .OneFrame<MoveEvent>();
         }
 
         public IEcsInitSystem InitSystems { get; }

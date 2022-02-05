@@ -1,6 +1,7 @@
 using UnityEngine;
 using Leopotam.Ecs;
 using AteroidsECS.ScriptableObjects;
+using AteroidsECS.Systems;
 using AteroidsECS.Systems.Player;
 
 namespace AteroidsECS.MonoBehaviours
@@ -19,7 +20,7 @@ namespace AteroidsECS.MonoBehaviours
         {
             _world = new EcsWorld();
 
-            PlayerSystems playerSystems = new PlayerSystems(_world, _playerData, _playerSpawnPoint);
+            IEntitySystems playerSystems = new PlayerSystems(_world, _playerData, _playerSpawnPoint);
 
             _initSystems = new EcsSystems(_world).Add(playerSystems.InitSystems);
             _updateSystems = new EcsSystems(_world).Add(playerSystems.UpdateSystems);

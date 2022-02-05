@@ -1,13 +1,14 @@
 ﻿using Leopotam.Ecs;
 using AteroidsECS.Components.Player;
+using AteroidsECS.Events.Player.Shoot;
 
 namespace AteroidsECS.Systems.Player
 {
     public class PlayerShootSystem : IEcsRunSystem
     {
-        private EcsFilter<FirstWeaponEvent> _firstWeaponfilter;
-        private EcsFilter<SecondWeaponEvent> _secondWeaponfilter;
         private EcsFilter<PlayerShootComponent> _filterPlayer;
+        private EcsFilter<FirstWeaponShootEvent> _firstWeaponfilter;
+        private EcsFilter<SecondWeaponShootEvent> _secondWeaponfilter;
 
         public void Run()
         {
@@ -18,10 +19,9 @@ namespace AteroidsECS.Systems.Player
                 TryShootByEvent(_firstWeaponfilter, ref shootComponent);
                 TryShootByEvent(_secondWeaponfilter, ref shootComponent);
             }
-            
         }
         
-        private void TryShootByEvent<TIEvent>(EcsFilter<TIEvent> weaponFilter, ref PlayerShootComponent shootComponent) where TIEvent : struct, IEvent
+        private void TryShootByEvent<TIEvent>(EcsFilter<TIEvent> weaponFilter, ref PlayerShootComponent shootComponent) where TIEvent : struct, IShootEvent
         {
             foreach (var i in weaponFilter)
             {

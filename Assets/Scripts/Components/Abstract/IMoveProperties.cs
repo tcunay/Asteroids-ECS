@@ -2,7 +2,7 @@
 {
     public interface IMoveProperties
     {
-        float MoveSpeed { get; }
-        float RotateSpeed { get;}
+        float MoveValue { get; }
+        float RotateValue { get;}
     }
 }

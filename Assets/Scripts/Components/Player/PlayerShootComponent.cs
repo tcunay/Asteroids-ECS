@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AteroidsECS.Events.Player.Shoot;
+using UnityEngine;
 
 namespace AteroidsECS.Components.Player
 {
@@ -13,14 +14,14 @@ namespace AteroidsECS.Components.Player
         public string BuletWeapon { get; private set; }
         public string LaserWeapon { get; private set; }
 
-        public void Shoot(IEvent shootEvent)
+        public void Shoot(IShootEvent shootEvent)
         {
             switch (shootEvent)
             {
-                case FirstWeaponEvent _:
+                case FirstWeaponShootEvent _:
                     Shoot(BuletWeapon);
                     break;
-                case SecondWeaponEvent _:
+                case SecondWeaponShootEvent _:
                     Shoot(LaserWeapon);
                     break;
             }
