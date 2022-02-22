@@ -1,3 +1,4 @@
+using AteroidsECS.Factories;
 using UnityEngine;
 using Leopotam.Ecs;
 using AteroidsECS.ScriptableObjects;
@@ -15,13 +16,20 @@ namespace AteroidsECS.MonoBehaviours
         private EcsSystems _initSystems;
         private EcsSystems _updateSystems;
         private EcsSystems _fixedUpdateSystems;
+        private PrefabFactory _factory;
 
         private void Init()
         {
             _world = new EcsWorld();
+            _factory = new PrefabFactory();
 
-            IEntitySystems playerSystems = new PlayerSystems(_world, _playerData, _playerSpawnPoint);
+            IEntitySystems playerSystems = new PlayerSystems(_world, _playerData, _playerSpawnPoint, _factory);
 
+            InitSystems(playerSystems);
+        }
+
+        private void InitSystems(IEntitySystems playerSystems)
+        {
             _initSystems = new EcsSystems(_world).Add(playerSystems.InitSystems);
             _updateSystems = new EcsSystems(_world).Add(playerSystems.UpdateSystems);
             _fixedUpdateSystems = new EcsSystems(_world).Add(playerSystems.FixedUpdateSystems);

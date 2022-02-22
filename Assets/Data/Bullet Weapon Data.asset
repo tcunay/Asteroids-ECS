@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf47e67c63f54f709d5429a9a0948dec, type: 3}
-  m_Name: Player Data
+  m_Script: {fileID: 11500000, guid: 3c308376efd041c1a97ed59b1a29bdf5, type: 3}
+  m_Name: Bullet Weapon Data
   m_EditorClassIdentifier: 
-  _prefab: {fileID: -2734199164841471296, guid: 5fb9ef8149ed1be40817161de5c2674a, type: 3}
-  _moveSpeed: 200
-  _rotateSpeed: 75
+  _bulletPrefab: {fileID: 0}
+  _speed: 0
+  _damage: 0

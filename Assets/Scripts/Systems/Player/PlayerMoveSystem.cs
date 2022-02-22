@@ -1,6 +1,7 @@
 ﻿using Leopotam.Ecs;
 using AteroidsECS.Components;
 using AteroidsECS.Events.Player.Move;
+using UnityEngine;
 
 namespace AteroidsECS.Systems.Player
 {
@@ -24,8 +25,8 @@ namespace AteroidsECS.Systems.Player
             foreach (var i in _filter)
             {
                 ref var moveComponent = ref _filter.Get1(i);
-                moveComponent.Move(moveEvent.MoveValue);
-                moveComponent.Rotate(moveEvent.RotateValue);
+                moveComponent.Move(moveEvent.MoveValue * Time.fixedDeltaTime);
+                moveComponent.Rotate(moveEvent.RotateValue * Time.fixedDeltaTime);
             }
         }
     }

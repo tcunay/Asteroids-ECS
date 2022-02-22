@@ -1,18 +1,21 @@
-﻿using AteroidsECS.Events.Player.Shoot;
+﻿using AteroidsECS.Components.Weapon;
+using AteroidsECS.Events.Player.Shoot;
 using UnityEngine;
 
 namespace AteroidsECS.Components.Player
 {
     public struct PlayerShootComponent
     {
-        public void Init(string buletWeapon, string laserWeapon)
+        public void Init(IWeaponComponent bulletWeapon, IWeaponComponent laserWeapon, Transform shootPoint)
         {
-            BuletWeapon = buletWeapon;
+            BuletWeapon = bulletWeapon;
             LaserWeapon = laserWeapon;
+            ShootPoint = shootPoint;
         }
 
-        public string BuletWeapon { get; private set; }
-        public string LaserWeapon { get; private set; }
+        public IWeaponComponent BuletWeapon { get; private set; }
+        public IWeaponComponent LaserWeapon { get; private set; }
+        private Transform ShootPoint { get; set; }
 
         public void Shoot(IShootEvent shootEvent)
         {
@@ -26,10 +29,11 @@ namespace AteroidsECS.Components.Player
                     break;
             }
         }
-
-        private void Shoot(string weaponName)
+        
+        private void Shoot(IWeaponComponent weapon)
         {
-            Debug.Log("Shoot " + weaponName);
+            weapon.Shoot();
         }
+        
     }
 }
