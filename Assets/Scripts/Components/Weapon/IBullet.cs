@@ -1,6 +1,8 @@
-﻿namespace AteroidsECS.Components.Weapon
+﻿using AteroidsECS.ScriptableObjects;
+
+namespace AteroidsECS.Components.Weapon
 {
-    public interface IBullet
+    public interface IBullet : IDefaultBullet
     {
         void Run();
     }

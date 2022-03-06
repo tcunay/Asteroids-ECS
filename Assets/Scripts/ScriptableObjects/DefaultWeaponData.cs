@@ -3,7 +3,7 @@
 namespace AteroidsECS.ScriptableObjects
 {
     [CreateAssetMenu]
-    public class DefaultWeaponData : ScriptableObject
+    public class DefaultWeaponData : ScriptableObject, IDefaultBullet
     {
         [SerializeField] private GameObject _defaultBulletPrefab;
         [SerializeField] private float _speed;

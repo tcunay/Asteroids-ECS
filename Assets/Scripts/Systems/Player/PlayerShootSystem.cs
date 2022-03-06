@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using AteroidsECS.Components.Player;
+using AteroidsECS.Components.Weapon;
 using AteroidsECS.Events.Player.Shoot;
 
 namespace AteroidsECS.Systems.Player
@@ -9,6 +10,7 @@ namespace AteroidsECS.Systems.Player
         private EcsFilter<PlayerShootComponent> _filterPlayer;
         private EcsFilter<FirstWeaponShootEvent> _firstWeaponfilter;
         private EcsFilter<SecondWeaponShootEvent> _secondWeaponfilter;
+        private EcsFilter<DefaultBulletComponent> _defaultBulletComponent;
 
         public void Run()
         {
@@ -18,6 +20,12 @@ namespace AteroidsECS.Systems.Player
                 
                 TryShootByEvent(_firstWeaponfilter, ref shootComponent);
                 TryShootByEvent(_secondWeaponfilter, ref shootComponent);
+            }
+
+            foreach (var i in _defaultBulletComponent)
+            {
+                ref var bullet = ref _defaultBulletComponent.Get1(i);
+                bullet.Run();
             }
         }
         

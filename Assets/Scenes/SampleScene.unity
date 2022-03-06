@@ -280,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerData: {fileID: 11400000, guid: 792ddc1547b0ead46a1b57b643d1c3f5, type: 2}
   _playerSpawnPoint: {fileID: 1405783263}
+  _bulletData: {fileID: 11400000, guid: b8b9649067bd83b469c3bb93485dfa94, type: 2}
 --- !u!4 &2094079288
 Transform:
   m_ObjectHideFlags: 0
