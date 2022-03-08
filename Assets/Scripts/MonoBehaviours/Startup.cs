@@ -4,6 +4,7 @@ using Leopotam.Ecs;
 using AteroidsECS.ScriptableObjects;
 using AteroidsECS.Systems;
 using AteroidsECS.Systems.Player;
+using AteroidsECS.Systems.Weapons;
 
 namespace AteroidsECS.MonoBehaviours
 {
@@ -12,7 +13,7 @@ namespace AteroidsECS.MonoBehaviours
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
         [SerializeField] private DefaultWeaponData _bulletData;
-        
+
         private EcsWorld _world;
         private EcsSystems _initSystems;
         private EcsSystems _updateSystems;
@@ -24,26 +25,42 @@ namespace AteroidsECS.MonoBehaviours
             _world = new EcsWorld();
             _factory = new PrefabFactory();
 
-            IEntitySystems playerSystems = new PlayerSystems(_world, _playerData, _playerSpawnPoint, _factory, _bulletData);
+            IEntitySystems playerSystems =
+                new PlayerSystems(_world, _playerData, _playerSpawnPoint, _factory, _bulletData);
+            IEntitySystems shootSystems = new WeaponsSystems(_world, _factory);
 
-            InitSystems(playerSystems);
+
+            InitSystems(playerSystems, shootSystems);
         }
 
-        private void InitSystems(IEntitySystems playerSystems)
+        private void InitSystems(params IEntitySystems[] systems)
         {
-            _initSystems = new EcsSystems(_world).Add(playerSystems.InitSystems);
-            _updateSystems = new EcsSystems(_world).Add(playerSystems.UpdateSystems);
-            _fixedUpdateSystems = new EcsSystems(_world).Add(playerSystems.FixedUpdateSystems);
-            
+            _initSystems = new EcsSystems(_world);
+            _updateSystems = new EcsSystems(_world);
+            _fixedUpdateSystems = new EcsSystems(_world);
+
+            foreach (var system in systems)
+            {
+                if (system.InitSystems != null)
+                    _initSystems.Add(system.InitSystems);
+                
+                if (system.UpdateSystems != null)
+                    _updateSystems.Add(system.UpdateSystems);
+                
+                if (system.FixedUpdateSystems != null)
+                    _fixedUpdateSystems.Add(system.FixedUpdateSystems);
+            }
+
             _initSystems.Init();
             _updateSystems.Init();
             _fixedUpdateSystems.Init();
 
-#if  UNITY_EDITOR
+#if UNITY_EDITOR
             Leopotam.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
             Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_initSystems).name = nameof(_initSystems);
             Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_updateSystems).name = nameof(_updateSystems);
-            Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_fixedUpdateSystems).name = nameof(_fixedUpdateSystems);
+            Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_fixedUpdateSystems).name =
+                nameof(_fixedUpdateSystems);
 #endif
         }
 

@@ -3,9 +3,9 @@ using AteroidsECS.Components.Player;
 using AteroidsECS.Components.Weapon;
 using AteroidsECS.Events.Player.Shoot;
 
-namespace AteroidsECS.Systems.Player
+namespace AteroidsECS.Systems.Weapons
 {
-    public class PlayerShootSystem : IEcsRunSystem
+    public class WeaponShootSystem : IEcsRunSystem
     {
         private EcsFilter<PlayerShootComponent> _filterPlayer;
         private EcsFilter<FirstWeaponShootEvent> _firstWeaponfilter;

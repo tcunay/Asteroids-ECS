@@ -16,8 +16,7 @@ namespace AteroidsECS.Systems.Player
                 playerSpawnPoint.transform.rotation);
 
             InitSystems = new EcsSystems(world).Add(new PlayerInitSystem()).Inject(playerData).Inject(playerPrefab).Inject(factory).Inject(defaultWeaponData);
-            UpdateSystems = new EcsSystems(world).Add(new PlayerInputSystem()).Add(new PlayerShootSystem())
-                .OneFrame<FirstWeaponShootEvent>().OneFrame<SecondWeaponShootEvent>();
+            UpdateSystems = new EcsSystems(world).Add(new PlayerInputSystem());
             FixedUpdateSystems = new EcsSystems(world).Add(new PlayerMoveSystem())
                 .OneFrame<MoveEvent>();
         }

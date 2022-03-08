@@ -1,4 +1,5 @@
-﻿using Object = UnityEngine.Object;
+﻿using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace AteroidsECS.Factories
 {
@@ -7,6 +8,11 @@ namespace AteroidsECS.Factories
         public T Create<T>(SpawnPrefab<T> spawnData) where T : Object
         {
             return Object.Instantiate(spawnData.Prefab, spawnData.Position, spawnData.Rotation);
+        }
+
+        public void Destroy(GameObject gameObject ,float destroyTime = 0)
+        {
+            Object.Destroy(gameObject, destroyTime);
         }
     }
 }

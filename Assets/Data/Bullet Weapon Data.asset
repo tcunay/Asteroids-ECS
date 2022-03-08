@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Bullet Weapon Data
   m_EditorClassIdentifier: 
   _defaultBulletPrefab: {fileID: 7502259683732030512, guid: 298fdc970f0608b49b3004d1024ed1c8, type: 3}
-  _speed: 10
+  _speed: 15
   _damage: 10
   _lifetime: 10
