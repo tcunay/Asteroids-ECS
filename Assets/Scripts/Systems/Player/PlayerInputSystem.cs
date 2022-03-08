@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿using AteroidsECS.Events.Move;
+using UnityEngine;
 using Leopotam.Ecs;
-using AteroidsECS.Events.Player.Move;
-using AteroidsECS.Events.Player.Shoot;
+using AteroidsECS.Events.Shoot;
 
 namespace AteroidsECS.Systems.Player
 {
@@ -18,10 +18,10 @@ namespace AteroidsECS.Systems.Player
         private void RunShootInput()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                _world.NewEntity().Get<FirstWeaponShootEvent>();
+                _world.NewEntity().Get<DefaultWeaponShootEvent>();
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
-                _world.NewEntity().Get<SecondWeaponShootEvent>();
+                _world.NewEntity().Get<LaserWeaponShootEvent>();
         }
 
         private void RunMoveInput()

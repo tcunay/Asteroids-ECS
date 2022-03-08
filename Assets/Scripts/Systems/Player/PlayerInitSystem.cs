@@ -22,9 +22,9 @@ namespace AteroidsECS.Systems.Player
 
             Rigidbody2D player = _prefabFactory.Create(_spawnData);
             
-            IWeaponComponent bulletWeapon = new DefaultWeaponComponent(_world, _defaultWeaponData, 
+            IWeaponComponent bulletWeapon = new DefaultWeaponComponent(_world, _prefabFactory, _defaultWeaponData, 
                 player.transform, player.transform.up);
-            IWeaponComponent laserWeapon = new DefaultWeaponComponent(_world, _defaultWeaponData,
+            IWeaponComponent laserWeapon = new DefaultWeaponComponent(_world, _prefabFactory, _defaultWeaponData,
                 player.transform, player.transform.up);
 
             playerEntity.Get<PlayerComponent>().Init(player.gameObject);

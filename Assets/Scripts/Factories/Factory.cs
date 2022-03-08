@@ -10,7 +10,7 @@ namespace AteroidsECS.Factories
             return Object.Instantiate(spawnData.Prefab, spawnData.Position, spawnData.Rotation);
         }
 
-        public void Destroy(GameObject gameObject ,float destroyTime = 0)
+        public void Destroy(Object gameObject ,float destroyTime = 0)
         {
             Object.Destroy(gameObject, destroyTime);
         }

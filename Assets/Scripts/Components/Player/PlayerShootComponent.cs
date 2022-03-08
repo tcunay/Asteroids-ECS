@@ -1,5 +1,5 @@
 ﻿using AteroidsECS.Components.Weapon;
-using AteroidsECS.Events.Player.Shoot;
+using AteroidsECS.Events.Shoot;
 using UnityEngine;
 
 namespace AteroidsECS.Components.Player
@@ -21,10 +21,10 @@ namespace AteroidsECS.Components.Player
         {
             switch (shootEvent)
             {
-                case FirstWeaponShootEvent _:
+                case DefaultWeaponShootEvent _:
                     Shoot(BuletWeapon);
                     break;
-                case SecondWeaponShootEvent _:
+                case LaserWeaponShootEvent _:
                     Shoot(LaserWeapon);
                     break;
             }

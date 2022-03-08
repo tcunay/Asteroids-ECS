@@ -1,7 +1,6 @@
-﻿using UnityEngine;
+﻿using AteroidsECS.Events.Move;
+using UnityEngine;
 using Leopotam.Ecs;
-using AteroidsECS.Events.Player.Move;
-using AteroidsECS.Events.Player.Shoot;
 using AteroidsECS.Factories;
 using AteroidsECS.MonoBehaviours;
 using AteroidsECS.ScriptableObjects;

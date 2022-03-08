@@ -1,4 +1,4 @@
-﻿namespace AteroidsECS.Events.Player.Shoot
+﻿namespace AteroidsECS.Events.Shoot
 {
     public interface IShootEvent
     {

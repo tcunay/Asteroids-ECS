@@ -1,6 +1,6 @@
 ﻿using Leopotam.Ecs;
 using AteroidsECS.Components;
-using AteroidsECS.Events.Player.Move;
+using AteroidsECS.Events.Move;
 using UnityEngine;
 
 namespace AteroidsECS.Systems.Player

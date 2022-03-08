@@ -1,4 +1,4 @@
-﻿namespace AteroidsECS.Events.Player.Move
+﻿namespace AteroidsECS.Events.Move
 {
     public struct MoveEvent : IMoveEvent
     {
