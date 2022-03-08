@@ -11,7 +11,7 @@ namespace AteroidsECS.Systems.Player
     {
         public PlayerSystems(EcsWorld world, PlayerData playerData, PlayerSpawnPoint playerSpawnPoint, PrefabFactory factory, DefaultWeaponData defaultWeaponData)
         {
-            var playerPrefab = new SpawnPrefab<Rigidbody2D>(playerData.Prefab, playerSpawnPoint.transform.position,
+            var playerPrefab = new SpawnPrefab<RigidbodyEntity>(playerData.Prefab, playerSpawnPoint.transform.position,
                 playerSpawnPoint.transform.rotation);
 
             InitSystems = new EcsSystems(world).Add(new PlayerInitSystem()).Inject(playerData).Inject(playerPrefab).Inject(factory).Inject(defaultWeaponData);

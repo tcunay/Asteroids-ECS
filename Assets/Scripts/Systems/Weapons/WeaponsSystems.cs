@@ -14,7 +14,7 @@ namespace AteroidsECS.Systems.Weapons
                 .Add(new WeaponShootSystem()).OneFrame<DefaultWeaponShootEvent>().OneFrame<LaserWeaponShootEvent>()
                 .Add(new BulletShootSystem()).Inject(factory);
         }
-        
+
         public IEcsInitSystem InitSystems { get; }
         public IEcsRunSystem UpdateSystems { get; }
         public IEcsRunSystem FixedUpdateSystems { get; }
@@ -24,13 +24,16 @@ namespace AteroidsECS.Systems.Weapons
     {
         private EcsFilter<DefaultBulletComponent> _defaultBulletComponent;
         private PrefabFactory _prefabFactory;
-        
+
         public void Run()
         {
             foreach (var i in _defaultBulletComponent)
             {
                 ref var bullet = ref _defaultBulletComponent.Get1(i);
                 bullet.Run();
+
+                if (bullet.IsLifeTimeEnded)
+                    bullet.Destroy();
             }
         }
     }

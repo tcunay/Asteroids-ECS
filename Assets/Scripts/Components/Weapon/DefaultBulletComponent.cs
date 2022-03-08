@@ -1,41 +1,50 @@
 ﻿using System;
 using AteroidsECS.Factories;
+using AteroidsECS.MonoBehaviours;
 using AteroidsECS.ScriptableObjects;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace AteroidsECS.Components.Weapon
 {
     public struct DefaultBulletComponent : IBullet
     {
-        private Transform _bullet;
+        private MonoEntity _bullet;
+        private PrefabFactory _factory;
 
-        public void Init(DefaultWeaponData defaultWeaponData, PrefabFactory factory, Transform spawnPoint,
+        public DefaultBulletComponent Init(DefaultWeaponData defaultWeaponData, PrefabFactory factory, Transform spawnPoint,
             Vector2 direction)
         {
             if (defaultWeaponData == null)
             {
                 Debug.LogError(new ArgumentNullException());
-                return;
+                return default;
             }
 
-            var spawnData = new SpawnPrefab<Transform>(defaultWeaponData.DefaultBulletPrefab.transform,
+            _factory = factory;
+            var spawnData = new SpawnPrefab<MonoEntity>(defaultWeaponData.DefaultBulletPrefab,
                 spawnPoint.position, spawnPoint.rotation);
             
-            _bullet = factory.Create(spawnData);
-            factory.Destroy(_bullet, defaultWeaponData.Lifetime);
-
+            _bullet = _factory.Create(spawnData);
+            
             Direction = direction;
             Damage = defaultWeaponData.Damage;
             Speed = defaultWeaponData.Speed;
-            Lifetime = defaultWeaponData.Damage;
+            MaxLifetime = 1;// defaultWeaponData.MaxLifetime;
+            CreateTime = Time.time;
+
+            return this;
         }
+
+        public event Action Died;
 
         public int Damage { get; private set; }
         public float Speed { get; private set; }
-        public float Lifetime { get; private set; }
+        public float MaxLifetime { get; private set; }
+        public bool IsLifeTimeEnded => LifeTime > MaxLifetime;
 
         private Vector2 Direction { get; set; }
+        private float CreateTime { get; set; }
+        private float LifeTime => Time.time - CreateTime;
 
         public void Run()
         {
@@ -45,7 +54,15 @@ namespace AteroidsECS.Components.Weapon
                 return;
             }
 
-            _bullet.Translate(Direction * Speed * Time.deltaTime);
+            _bullet.transform.Translate(Direction * Speed * Time.deltaTime);
+        }
+
+        public void Destroy()
+        {
+            //_factory.Destroy(_bullet);
+            _bullet.Destroy();
+            Debug.Log("bullet destroy");
+            Died?.Invoke();
         }
     }
 }

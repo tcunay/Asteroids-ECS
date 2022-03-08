@@ -1,5 +1,6 @@
 ﻿using System;
 using AteroidsECS.Components.Abstract;
+using AteroidsECS.MonoBehaviours;
 using UnityEngine;
 
 namespace AteroidsECS.ScriptableObjects
@@ -7,7 +8,7 @@ namespace AteroidsECS.ScriptableObjects
     [CreateAssetMenu]
     public class PlayerData : ScriptableObject, IMoveProperties
     {
-        [SerializeField] private Rigidbody2D _prefab;
+        [SerializeField] private RigidbodyEntity _prefab;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _rotateSpeed;
 
@@ -27,7 +28,7 @@ namespace AteroidsECS.ScriptableObjects
                 
         }
 
-        public Rigidbody2D Prefab => _prefab;
+        public RigidbodyEntity Prefab => _prefab;
         public float MoveValue => _moveSpeed;
         public float RotateValue => _rotateSpeed;
     }

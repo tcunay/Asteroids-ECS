@@ -13,7 +13,8 @@ namespace AteroidsECS.Components.Weapon
         private readonly Transform _spawnPoint;
         private readonly Vector2 _direction;
 
-        public DefaultWeaponComponent(EcsWorld world, PrefabFactory factory, DefaultWeaponData defaultWeaponData, Transform spawnPoint, Vector2 direction)
+        public DefaultWeaponComponent(EcsWorld world, PrefabFactory factory, DefaultWeaponData defaultWeaponData,
+            Transform spawnPoint, Vector2 direction)
         {
             _world = world;
             _factory = factory;
@@ -26,9 +27,6 @@ namespace AteroidsECS.Components.Weapon
         {
             var bullet = _world.NewEntity();
             bullet.Get<DefaultBulletComponent>().Init(_defaultWeaponData, _factory, _spawnPoint, _direction);
-            bullet.Destroy();
         }
-        
-        
     }
 }

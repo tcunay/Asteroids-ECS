@@ -4,6 +4,7 @@ using AteroidsECS.Components;
 using AteroidsECS.Components.Player;
 using AteroidsECS.Components.Weapon;
 using AteroidsECS.Factories;
+using AteroidsECS.MonoBehaviours;
 using AteroidsECS.ScriptableObjects;
 
 namespace AteroidsECS.Systems.Player
@@ -13,14 +14,14 @@ namespace AteroidsECS.Systems.Player
         private EcsWorld _world;
         private PlayerData _data;
         private PrefabFactory _prefabFactory;
-        private SpawnPrefab<Rigidbody2D> _spawnData;
+        private SpawnPrefab<RigidbodyEntity> _spawnData;
         private DefaultWeaponData _defaultWeaponData;
 
         public void Init()
         {
             var playerEntity = _world.NewEntity();
 
-            Rigidbody2D player = _prefabFactory.Create(_spawnData);
+            RigidbodyEntity player = _prefabFactory.Create(_spawnData);
             
             IWeaponComponent bulletWeapon = new DefaultWeaponComponent(_world, _prefabFactory, _defaultWeaponData, 
                 player.transform, player.transform.up);
@@ -29,7 +30,7 @@ namespace AteroidsECS.Systems.Player
 
             playerEntity.Get<PlayerComponent>().Init(player.gameObject);
             playerEntity.Get<MoveInputComponent>();
-            playerEntity.Get<MoveComponent>().Init(player, _data);
+            playerEntity.Get<MoveComponent>().Init(player.Rigidbody, _data);
             playerEntity.Get<PlayerShootComponent>().Init(bulletWeapon, laserWeapon, player.transform);
         }
     }

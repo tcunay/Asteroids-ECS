@@ -4,6 +4,6 @@ namespace AteroidsECS.ScriptableObjects
     {
         int Damage { get; }
         float Speed { get; }
-        float Lifetime { get; }
+        float MaxLifetime { get; }
     }
 }
