@@ -24,4 +24,7 @@ namespace AteroidsECS.Systems.Player
         public IEcsRunSystem UpdateSystems { get; }
         public IEcsRunSystem FixedUpdateSystems { get; }
     }
+    
+    
+    
 }
