@@ -54,7 +54,7 @@ namespace AteroidsECS.Components.Weapon
                 return;
             }
 
-            _bullet.transform.Translate(Direction * Speed * Time.deltaTime);
+            _bullet.Transform.Translate(Direction * Speed * Time.deltaTime);
         }
 
         public void Destroy()

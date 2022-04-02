@@ -6,9 +6,10 @@ namespace AteroidsECS.MonoBehaviours
     public class RigidbodyEntity : MonoEntity
     {
         public Rigidbody2D Rigidbody { get; private set; }
-        
-        private void Awake()
+
+        public override void Init()
         {
+            base.Init();
             Rigidbody = GetComponent<Rigidbody2D>();
         }
     }

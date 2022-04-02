@@ -6,9 +6,11 @@ namespace AteroidsECS.Factories
 {
     public class PrefabFactory
     {
-        public T Create<T>(SpawnPrefab<T> spawnData) where T : Object
+        public T Create<T>(SpawnPrefab<T> spawnData) where T : MonoEntity
         {
-            return Object.Instantiate(spawnData.Prefab, spawnData.Position, spawnData.Rotation);
+            var monoEntity = Object.Instantiate(spawnData.Prefab, spawnData.Position, spawnData.Rotation);
+            monoEntity.Init();
+            return monoEntity;
         }
 
         public void Destroy(MonoEntity monoEntity ,float destroyTime = 0)
