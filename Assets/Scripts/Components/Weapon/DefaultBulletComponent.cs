@@ -6,18 +6,39 @@ using UnityEngine;
 
 namespace AteroidsECS.Components.Weapon
 {
+    public struct LaserBulletComponent : IBullet
+    {
+        private readonly LineRendererMonoEntity _bullet;
+        
+        public LaserBulletComponent(LineRendererMonoEntity bullet, PrefabFactory factory)
+        {
+            _bullet = bullet;
+            Damage = 0;
+            Speed = 0;
+            MaxLifetime = 0;
+        }
+
+
+        public int Damage { get; }
+        public float Speed { get; }
+        public float MaxLifetime { get; }
+        public void Run()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    
     public struct DefaultBulletComponent : IBullet
     {
-        private MonoEntity _bullet;
-        private PrefabFactory _factory;
+        private readonly MonoEntity _bullet;
+        private readonly PrefabFactory _factory;
 
-        public DefaultBulletComponent Init(WeaponData weaponData, PrefabFactory factory, Transform spawnPoint,
+        public DefaultBulletComponent(WeaponData weaponData, PrefabFactory factory, Transform spawnPoint,
             Vector2 direction)
         {
-            if (weaponData == null)
+            if (weaponData == null || factory == null || spawnPoint == null)
             {
                 Debug.LogError(new ArgumentNullException());
-                return default;
             }
 
             _factory = factory;
@@ -31,8 +52,7 @@ namespace AteroidsECS.Components.Weapon
             Speed = weaponData.Speed;
             MaxLifetime = weaponData.MaxLifetime;
             CreateTime = Time.time;
-
-            return this;
+            Died = null;
         }
 
         public event Action Died;

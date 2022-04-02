@@ -27,7 +27,7 @@ namespace AteroidsECS.Systems.Weapons
 
     public class LaserShootSystem : IEcsInitSystem, IEcsRunSystem
     {
-        //private EcsFilter<LaserWeaponComponent> _defaultBulletComponent;
+        private EcsFilter<LaserBulletComponent> _defaultBulletComponent;
         private PrefabFactory _prefabFactory;
 
         public void Init()
