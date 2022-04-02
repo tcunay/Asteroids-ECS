@@ -1,5 +1,6 @@
 ﻿using Leopotam.Ecs;
 using AteroidsECS.Components.Player;
+using AteroidsECS.Components.Weapon;
 using AteroidsECS.Events.Shoot;
 
 namespace AteroidsECS.Systems.Weapons
@@ -16,19 +17,31 @@ namespace AteroidsECS.Systems.Weapons
             {
                 ref var shootComponent = ref _filterPlayer.Get1(i);
 
-                TryShootByEvent(_defaultWeaponfilter, ref shootComponent);
-                TryShootByEvent(_laserWeaponfilter, ref shootComponent);
+                TryShoot(_defaultWeaponfilter, ref shootComponent);
+                TryShoot(_laserWeaponfilter, ref shootComponent);
             }
         }
 
-        private void TryShootByEvent<TIEvent>(EcsFilter<TIEvent> weaponFilter, ref PlayerShootComponent shootComponent)
+        private void TryShoot<TIEvent>(EcsFilter<TIEvent> weaponFilter, ref PlayerShootComponent shootComponent)
             where TIEvent : struct, IShootEvent
         {
             foreach (var i in weaponFilter)
             {
-                ref var component = ref weaponFilter.Get1(i);
-
-                shootComponent.Shoot(component);
+                ref var eventComponent = ref weaponFilter.Get1(i);
+                Shoot(eventComponent, ref shootComponent);
+            }
+        }
+        
+        private void Shoot(IShootEvent shootEvent, ref PlayerShootComponent shootComponent)
+        {
+            switch (shootEvent)
+            {
+                case DefaultWeaponShootEvent _:
+                    shootComponent.BuletWeapon.Shoot();
+                    break;
+                case LaserWeaponShootEvent _:
+                    shootComponent.LaserWeapon.Shoot();
+                    break;
             }
         }
     }
