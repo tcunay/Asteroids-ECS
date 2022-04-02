@@ -1,6 +1,7 @@
 ﻿using System;
 using AteroidsECS.Components.Abstract;
 using AteroidsECS.MonoBehaviours;
+using AteroidsECS.MonoBehaviours.MonoEntities;
 using UnityEngine;
 
 namespace AteroidsECS.ScriptableObjects

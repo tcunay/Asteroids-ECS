@@ -5,6 +5,7 @@ using AteroidsECS.Components.Player;
 using AteroidsECS.Components.Weapon;
 using AteroidsECS.Factories;
 using AteroidsECS.MonoBehaviours;
+using AteroidsECS.MonoBehaviours.MonoEntities;
 using AteroidsECS.ScriptableObjects;
 
 namespace AteroidsECS.Systems.Player

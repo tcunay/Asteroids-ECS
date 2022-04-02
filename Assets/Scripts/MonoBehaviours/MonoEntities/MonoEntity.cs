@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace AteroidsECS.MonoBehaviours
+namespace AteroidsECS.MonoBehaviours.MonoEntities
 {
     [RequireComponent(typeof(Transform))]
     public class MonoEntity : MonoBehaviour

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AteroidsECS.MonoBehaviours
+namespace AteroidsECS.MonoBehaviours.MonoEntities
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class RigidbodyEntity : MonoEntity

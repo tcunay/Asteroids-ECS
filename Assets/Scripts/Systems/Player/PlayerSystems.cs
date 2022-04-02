@@ -4,6 +4,7 @@ using UnityEngine;
 using Leopotam.Ecs;
 using AteroidsECS.Factories;
 using AteroidsECS.MonoBehaviours;
+using AteroidsECS.MonoBehaviours.MonoEntities;
 using AteroidsECS.ScriptableObjects;
 using AteroidsECS.Systems.Weapons;
 
