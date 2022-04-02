@@ -9,14 +9,12 @@ namespace AteroidsECS.Systems.Weapons
     {
         public WeaponsSystems(EcsWorld world, PrefabFactory factory)
         {
-            var weaponSootEventSystem = new WeaponShootEventSystem();
             var bulletSystem = new BulletShootSystem();
             var laserSystem = new LaserShootSystem();
 
             InitSystems = new EcsSystems(world).Add(laserSystem).Inject(factory);
             
             UpdateSystems = new EcsSystems(world)
-                .Add(weaponSootEventSystem).OneFrame<BulletWeaponShootEvent>().OneFrame<LaserWeaponShootEvent>()
                 .Add(bulletSystem).Add(laserSystem).Inject(factory);
         }
 

@@ -1,9 +1,11 @@
 ﻿using AteroidsECS.Events.Move;
+using AteroidsECS.Events.Shoot;
 using UnityEngine;
 using Leopotam.Ecs;
 using AteroidsECS.Factories;
 using AteroidsECS.MonoBehaviours;
 using AteroidsECS.ScriptableObjects;
+using AteroidsECS.Systems.Weapons;
 
 namespace AteroidsECS.Systems.Player
 {
@@ -16,7 +18,8 @@ namespace AteroidsECS.Systems.Player
 
             InitSystems = new EcsSystems(world).Add(new PlayerInitSystem()).Inject(playerData)
                 .Inject(playerPrefab).Inject(factory).Inject(weaponData);
-            UpdateSystems = new EcsSystems(world).Add(new PlayerInputSystem());
+            UpdateSystems = new EcsSystems(world).Add(new PlayerInputSystem()).Add(new PlayerWeaponShootEventSystem())
+                .OneFrame<BulletWeaponShootEvent>().OneFrame<LaserWeaponShootEvent>();
             FixedUpdateSystems = new EcsSystems(world).Add(new PlayerMoveSystem())
                 .OneFrame<MoveEvent>();
         }
