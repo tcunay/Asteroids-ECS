@@ -26,7 +26,7 @@ namespace AteroidsECS.Components.Weapon
         public void Shoot()
         {
             var bullet = _world.NewEntity();
-            bullet.Get<DefaultBulletBaseComponent>().Init(_weaponData, _factory, _spawnPoint, _direction);
+            bullet.Get<DefaultBulletComponent>().Init(_weaponData, _factory, _spawnPoint, _direction);
         }
     }
 }

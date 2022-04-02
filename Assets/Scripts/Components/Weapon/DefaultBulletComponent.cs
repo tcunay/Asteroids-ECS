@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace AteroidsECS.Components.Weapon
 {
-    public struct DefaultBulletBaseComponent : IBullet
+    public struct DefaultBulletComponent : IBullet
     {
         private MonoEntity _bullet;
         private PrefabFactory _factory;
 
-        public DefaultBulletBaseComponent Init(WeaponData weaponData, PrefabFactory factory, Transform spawnPoint,
+        public DefaultBulletComponent Init(WeaponData weaponData, PrefabFactory factory, Transform spawnPoint,
             Vector2 direction)
         {
             if (weaponData == null)
