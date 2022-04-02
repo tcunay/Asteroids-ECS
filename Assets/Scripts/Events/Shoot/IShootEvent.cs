@@ -1,6 +1,8 @@
-﻿namespace AteroidsECS.Events.Shoot
+﻿using Leopotam.Ecs;
+
+namespace AteroidsECS.Events.Shoot
 {
-    public interface IShootEvent
+    public interface IShootEvent : IEcsIgnoreInFilter 
     {
         
     }

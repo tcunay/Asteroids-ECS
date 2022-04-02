@@ -19,7 +19,21 @@ namespace AteroidsECS.MonoBehaviours
         private EcsSystems _updateSystems;
         private EcsSystems _fixedUpdateSystems;
         private PrefabFactory _factory;
+        
+        private void Awake() => Init();
 
+        private void Update() => _updateSystems?.Run();
+
+        private void FixedUpdate() => _fixedUpdateSystems?.Run();
+
+        private void OnDestroy()
+        {
+            _initSystems?.Destroy();
+            _updateSystems?.Destroy();
+            _fixedUpdateSystems?.Destroy();
+            _world?.Destroy();
+        }
+        
         private void Init()
         {
             _world = new EcsWorld();
@@ -62,20 +76,6 @@ namespace AteroidsECS.MonoBehaviours
             Leopotam.Ecs.UnityIntegration.EcsSystemsObserver.Create(_fixedUpdateSystems).name =
                 nameof(_fixedUpdateSystems);
 #endif
-        }
-
-        private void Start() => Init();
-
-        private void Update() => _updateSystems?.Run();
-
-        private void FixedUpdate() => _fixedUpdateSystems?.Run();
-
-        private void OnDestroy()
-        {
-            _initSystems?.Destroy();
-            _updateSystems?.Destroy();
-            _fixedUpdateSystems?.Destroy();
-            _world?.Destroy();
         }
     }
 }

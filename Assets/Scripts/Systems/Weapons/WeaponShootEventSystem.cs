@@ -1,4 +1,5 @@
-﻿using Leopotam.Ecs;
+﻿using System;
+using Leopotam.Ecs;
 using AteroidsECS.Components.Player;
 using AteroidsECS.Components.Weapon;
 using AteroidsECS.Events.Shoot;
@@ -26,23 +27,17 @@ namespace AteroidsECS.Systems.Weapons
             where TIEvent : struct, IShootEvent
         {
             foreach (var i in weaponFilter)
-            {
-                ref var eventComponent = ref weaponFilter.Get1(i);
-                Shoot(eventComponent, ref shootComponent);
-            }
+                Shoot(weaponFilter.IncludedTypes[0], ref shootComponent);
         }
         
-        private void Shoot(IShootEvent shootEvent, ref PlayerShootComponent shootComponent)
+        private void Shoot(Type shootType, ref PlayerShootComponent shootComponent)
         {
-            switch (shootEvent)
-            {
-                case BulletWeaponShootEvent _:
-                    shootComponent.BuletWeapon.Shoot();
-                    break;
-                case LaserWeaponShootEvent _:
-                    shootComponent.LaserWeapon.Shoot();
-                    break;
-            }
+            if (shootType == typeof(BulletWeaponShootEvent))
+                shootComponent.BuletWeapon.Shoot();
+            else if (shootType == typeof(LaserWeaponShootEvent))
+                shootComponent.LaserWeapon.Shoot();
+            else
+                throw new InvalidOperationException();
         }
     }
 }
