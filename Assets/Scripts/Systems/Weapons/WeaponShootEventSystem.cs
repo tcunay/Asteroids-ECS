@@ -18,16 +18,16 @@ namespace AteroidsECS.Systems.Weapons
             {
                 ref var shootComponent = ref _filterPlayer.Get1(i);
 
-                TryShoot(_defaultWeaponfilter, ref shootComponent);
-                TryShoot(_laserWeaponfilter, ref shootComponent);
+                TryShoot(ref shootComponent, _defaultWeaponfilter, _laserWeaponfilter);
             }
         }
 
-        private void TryShoot<TIEvent>(EcsFilter<TIEvent> weaponFilter, ref PlayerShootComponent shootComponent)
-            where TIEvent : struct, IShootEvent
+        private void TryShoot(ref PlayerShootComponent shootComponent, params EcsFilter[] weaponFilters)
         {
+            foreach (var weaponFilter in weaponFilters)
             foreach (var i in weaponFilter)
                 Shoot(weaponFilter.IncludedTypes[0], ref shootComponent);
+            
         }
         
         private void Shoot(Type shootType, ref PlayerShootComponent shootComponent)
