@@ -12,7 +12,7 @@ namespace AteroidsECS.MonoBehaviours
     {
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
-        [SerializeField] private DefaultWeaponData _bulletData;
+        [SerializeField] private WeaponData _bulletData;
 
         private EcsWorld _world;
         private EcsSystems _initSystems;

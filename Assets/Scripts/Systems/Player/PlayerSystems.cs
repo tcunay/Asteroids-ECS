@@ -9,13 +9,13 @@ namespace AteroidsECS.Systems.Player
 {
     public class PlayerSystems : IEntitySystems
     {
-        public PlayerSystems(EcsWorld world, PlayerData playerData, PlayerSpawnPoint playerSpawnPoint, PrefabFactory factory, DefaultWeaponData defaultWeaponData)
+        public PlayerSystems(EcsWorld world, PlayerData playerData, PlayerSpawnPoint playerSpawnPoint, PrefabFactory factory, WeaponData weaponData)
         {
             var playerPrefab = new SpawnPrefab<RigidbodyEntity>(playerData.Prefab, playerSpawnPoint.transform.position,
                 playerSpawnPoint.transform.rotation);
 
             InitSystems = new EcsSystems(world).Add(new PlayerInitSystem()).Inject(playerData)
-                .Inject(playerPrefab).Inject(factory).Inject(defaultWeaponData);
+                .Inject(playerPrefab).Inject(factory).Inject(weaponData);
             UpdateSystems = new EcsSystems(world).Add(new PlayerInputSystem());
             FixedUpdateSystems = new EcsSystems(world).Add(new PlayerMoveSystem())
                 .OneFrame<MoveEvent>();

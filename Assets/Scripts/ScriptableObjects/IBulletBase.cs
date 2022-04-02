@@ -1,6 +1,6 @@
 namespace AteroidsECS.ScriptableObjects
 {
-    public interface IDefaultBullet
+    public interface IBulletBase
     {
         int Damage { get; }
         float Speed { get; }

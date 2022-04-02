@@ -6,30 +6,30 @@ using UnityEngine;
 
 namespace AteroidsECS.Components.Weapon
 {
-    public struct DefaultBulletComponent : IBullet
+    public struct DefaultBulletBaseComponent : IBullet
     {
         private MonoEntity _bullet;
         private PrefabFactory _factory;
 
-        public DefaultBulletComponent Init(DefaultWeaponData defaultWeaponData, PrefabFactory factory, Transform spawnPoint,
+        public DefaultBulletBaseComponent Init(WeaponData weaponData, PrefabFactory factory, Transform spawnPoint,
             Vector2 direction)
         {
-            if (defaultWeaponData == null)
+            if (weaponData == null)
             {
                 Debug.LogError(new ArgumentNullException());
                 return default;
             }
 
             _factory = factory;
-            var spawnData = new SpawnPrefab<MonoEntity>(defaultWeaponData.DefaultBulletPrefab,
+            var spawnData = new SpawnPrefab<MonoEntity>(weaponData.DefaultBulletPrefab,
                 spawnPoint.position, spawnPoint.rotation);
             
             _bullet = _factory.Create(spawnData);
             
             Direction = direction;
-            Damage = defaultWeaponData.Damage;
-            Speed = defaultWeaponData.Speed;
-            MaxLifetime = defaultWeaponData.MaxLifetime;
+            Damage = weaponData.Damage;
+            Speed = weaponData.Speed;
+            MaxLifetime = weaponData.MaxLifetime;
             CreateTime = Time.time;
 
             return this;

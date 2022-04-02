@@ -4,7 +4,7 @@ using UnityEngine;
 namespace AteroidsECS.ScriptableObjects
 {
     [CreateAssetMenu]
-    public class DefaultWeaponData : ScriptableObject, IDefaultBullet
+    public class WeaponData : ScriptableObject, IBulletBase
     {
         [SerializeField] private MonoEntity _defaultBulletPrefab;
         [SerializeField] private float _speed;

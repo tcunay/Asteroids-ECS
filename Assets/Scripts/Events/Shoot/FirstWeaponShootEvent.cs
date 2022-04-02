@@ -1,6 +1,6 @@
 ﻿namespace AteroidsECS.Events.Shoot
 {
-    public struct DefaultWeaponShootEvent : IShootEvent
+    public struct BulletWeaponShootEvent : IShootEvent
     {
         
     }

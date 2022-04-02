@@ -8,7 +8,7 @@ namespace AteroidsECS.Systems.Weapons
     public class WeaponShootEventSystem : IEcsRunSystem
     {
         private EcsFilter<PlayerShootComponent> _filterPlayer;
-        private EcsFilter<DefaultWeaponShootEvent> _defaultWeaponfilter;
+        private EcsFilter<BulletWeaponShootEvent> _defaultWeaponfilter;
         private EcsFilter<LaserWeaponShootEvent> _laserWeaponfilter;
 
         public void Run()
@@ -36,7 +36,7 @@ namespace AteroidsECS.Systems.Weapons
         {
             switch (shootEvent)
             {
-                case DefaultWeaponShootEvent _:
+                case BulletWeaponShootEvent _:
                     shootComponent.BuletWeapon.Shoot();
                     break;
                 case LaserWeaponShootEvent _:

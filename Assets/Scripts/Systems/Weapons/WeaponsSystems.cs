@@ -10,7 +10,7 @@ namespace AteroidsECS.Systems.Weapons
         public WeaponsSystems(EcsWorld world, PrefabFactory factory)
         {
             UpdateSystems = new EcsSystems(world)
-                .Add(new WeaponShootEventSystem()).OneFrame<DefaultWeaponShootEvent>().OneFrame<LaserWeaponShootEvent>()
+                .Add(new WeaponShootEventSystem()).OneFrame<BulletWeaponShootEvent>().OneFrame<LaserWeaponShootEvent>()
                 .Add(new BulletShootSystem()).Inject(factory);
         }
 
@@ -19,9 +19,17 @@ namespace AteroidsECS.Systems.Weapons
         public IEcsRunSystem FixedUpdateSystems { get; }
     }
 
+    public class LaserShootSystem : IEcsRunSystem
+    {
+        public void Run()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
     public class BulletShootSystem : IEcsRunSystem
     {
-        private EcsFilter<DefaultBulletComponent> _defaultBulletComponent;
+        private EcsFilter<DefaultBulletBaseComponent> _defaultBulletComponent;
         private PrefabFactory _prefabFactory;
 
         public void Run()

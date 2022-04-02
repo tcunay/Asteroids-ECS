@@ -2,7 +2,7 @@
 
 namespace AteroidsECS.Components.Weapon
 {
-    public interface IBullet : IDefaultBullet
+    public interface IBullet : IBulletBase
     {
         void Run();
     }

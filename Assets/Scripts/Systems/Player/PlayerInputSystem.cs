@@ -18,7 +18,7 @@ namespace AteroidsECS.Systems.Player
         private void RunShootInput()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                _world.NewEntity().Get<DefaultWeaponShootEvent>();
+                _world.NewEntity().Get<BulletWeaponShootEvent>();
 
             if (Input.GetKeyDown(KeyCode.LeftShift))
                 _world.NewEntity().Get<LaserWeaponShootEvent>();

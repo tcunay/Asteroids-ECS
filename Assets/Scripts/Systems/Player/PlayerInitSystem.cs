@@ -15,7 +15,7 @@ namespace AteroidsECS.Systems.Player
         private readonly PlayerData _data;
         private readonly PrefabFactory _prefabFactory;
         private readonly SpawnPrefab<RigidbodyEntity> _spawnData;
-        private readonly DefaultWeaponData _defaultWeaponData;
+        private readonly WeaponData _weaponData;
 
         public void Init()
         {
@@ -23,9 +23,9 @@ namespace AteroidsECS.Systems.Player
 
             RigidbodyEntity player = _prefabFactory.Create(_spawnData);
             
-            IWeaponComponent bulletWeapon = new DefaultWeaponComponent(_world, _prefabFactory, _defaultWeaponData, 
+            IWeaponComponent bulletWeapon = new DefaultWeaponComponent(_world, _prefabFactory, _weaponData, 
                 player.Transform, player.Transform.up);
-            IWeaponComponent laserWeapon = new DefaultWeaponComponent(_world, _prefabFactory, _defaultWeaponData,
+            IWeaponComponent laserWeapon = new DefaultWeaponComponent(_world, _prefabFactory, _weaponData,
                 player.Transform, player.Transform.up);
 
             playerEntity.Get<PlayerComponent>().Init(player.gameObject);
