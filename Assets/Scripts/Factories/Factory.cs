@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using AteroidsECS.MonoBehaviours;
+using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace AteroidsECS.Factories
@@ -10,9 +11,9 @@ namespace AteroidsECS.Factories
             return Object.Instantiate(spawnData.Prefab, spawnData.Position, spawnData.Rotation);
         }
 
-        public void Destroy(Object gameObject ,float destroyTime = 0)
+        public void Destroy(MonoEntity monoEntity ,float destroyTime = 0)
         {
-            Object.Destroy(gameObject, destroyTime);
+            monoEntity.Destroy(destroyTime);
         }
     }
 }

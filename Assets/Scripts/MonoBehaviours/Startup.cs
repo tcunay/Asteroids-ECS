@@ -25,9 +25,9 @@ namespace AteroidsECS.MonoBehaviours
             _world = new EcsWorld();
             _factory = new PrefabFactory();
 
+            IEntitySystems shootSystems = new WeaponsSystems(_world, _factory);
             IEntitySystems playerSystems =
                 new PlayerSystems(_world, _playerData, _playerSpawnPoint, _factory, _bulletData);
-            IEntitySystems shootSystems = new WeaponsSystems(_world, _factory);
 
 
             InitSystems(playerSystems, shootSystems);

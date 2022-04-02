@@ -4,7 +4,7 @@ using AteroidsECS.Events.Shoot;
 
 namespace AteroidsECS.Systems.Weapons
 {
-    public class WeaponShootSystem : IEcsRunSystem
+    public class WeaponShootEventSystem : IEcsRunSystem
     {
         private EcsFilter<PlayerShootComponent> _filterPlayer;
         private EcsFilter<DefaultWeaponShootEvent> _defaultWeaponfilter;

@@ -29,7 +29,7 @@ namespace AteroidsECS.Components.Weapon
             Direction = direction;
             Damage = defaultWeaponData.Damage;
             Speed = defaultWeaponData.Speed;
-            MaxLifetime = 1;// defaultWeaponData.MaxLifetime;
+            MaxLifetime = defaultWeaponData.MaxLifetime;
             CreateTime = Time.time;
 
             return this;
@@ -59,9 +59,7 @@ namespace AteroidsECS.Components.Weapon
 
         public void Destroy()
         {
-            //_factory.Destroy(_bullet);
-            _bullet.Destroy();
-            Debug.Log("bullet destroy");
+            _factory.Destroy(_bullet);
             Died?.Invoke();
         }
     }

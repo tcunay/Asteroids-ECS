@@ -11,11 +11,11 @@ namespace AteroidsECS.Systems.Player
 {
     public class PlayerInitSystem : IEcsInitSystem
     {
-        private EcsWorld _world;
-        private PlayerData _data;
-        private PrefabFactory _prefabFactory;
-        private SpawnPrefab<RigidbodyEntity> _spawnData;
-        private DefaultWeaponData _defaultWeaponData;
+        private readonly EcsWorld _world;
+        private readonly PlayerData _data;
+        private readonly PrefabFactory _prefabFactory;
+        private readonly SpawnPrefab<RigidbodyEntity> _spawnData;
+        private readonly DefaultWeaponData _defaultWeaponData;
 
         public void Init()
         {

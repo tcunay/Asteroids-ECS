@@ -4,9 +4,9 @@ namespace AteroidsECS.MonoBehaviours
 {
     public class MonoEntity : MonoBehaviour
     {
-        public void Destroy()
+        public void Destroy(float destroyTime = 0)
         {
-            Destroy(gameObject);
+            Destroy(gameObject, destroyTime);
         }
     }
 }
