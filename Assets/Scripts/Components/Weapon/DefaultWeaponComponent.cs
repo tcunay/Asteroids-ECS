@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace AteroidsECS.Components.Weapon
 {
-    public struct DefaultBulletWeaponComponent : IWeaponComponent
+    public struct DefaultWeaponComponent : IWeaponComponent
     {
         private readonly EcsWorld _world;
         private readonly PrefabFactory _factory;
@@ -13,7 +13,7 @@ namespace AteroidsECS.Components.Weapon
         private readonly Transform _spawnPoint;
         private readonly Vector2 _direction;
 
-        public DefaultBulletWeaponComponent(EcsWorld world, PrefabFactory factory, WeaponData weaponData,
+        public DefaultWeaponComponent(EcsWorld world, PrefabFactory factory, WeaponData weaponData,
             Transform spawnPoint, Vector2 direction)
         {
             _world = world;

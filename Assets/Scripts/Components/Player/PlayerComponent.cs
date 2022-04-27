@@ -5,12 +5,11 @@ namespace AteroidsECS.Components.Player
 {
     public struct PlayerComponent : IEcsIgnoreInFilter
     {
-        public GameObject GameObject { get; private set; }
-
-        public void Init(GameObject gameObject)
+        public PlayerComponent(GameObject gameObject)
         {
             GameObject = gameObject;
         }
         
+        public GameObject GameObject { get; }
     }
 }

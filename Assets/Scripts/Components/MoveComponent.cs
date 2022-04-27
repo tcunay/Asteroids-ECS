@@ -6,7 +6,7 @@ namespace AteroidsECS.Components
 {
     public struct MoveComponent : IMoveComponent
     {
-        public void Init(Rigidbody2D rigidbody, IMoveProperties properties)
+        public MoveComponent(Rigidbody2D rigidbody, IMoveProperties properties)
         {
             if (rigidbody == null || properties.MoveValue < 0 || properties.RotateValue < 0)
                 throw new InvalidOperationException();
@@ -16,10 +16,10 @@ namespace AteroidsECS.Components
             RotateValue = properties.RotateValue;
         }
 
-        public float MoveValue { get; private set; }
-        public float RotateValue { get; private set; }
+        public float MoveValue { get; }
+        public float RotateValue { get; }
 
-        private Rigidbody2D Rigidbody { get; set; }
+        private Rigidbody2D Rigidbody { get; }
 
         public void Move(float direction) => Rigidbody.AddForce(Rigidbody.transform.up * direction * MoveValue, ForceMode2D.Force);
 
