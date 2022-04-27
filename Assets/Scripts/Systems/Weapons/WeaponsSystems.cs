@@ -25,8 +25,7 @@ namespace AteroidsECS.Systems.Weapons
 
     public class LaserShootSystem : IEcsInitSystem, IEcsRunSystem
     {
-        private EcsFilter<LaserBulletComponent> _defaultBulletComponent;
-        private PrefabFactory _prefabFactory;
+        private EcsFilter<LaserBulletComponent> _laserBulletComponent;
 
         public void Init()
         {
@@ -35,7 +34,11 @@ namespace AteroidsECS.Systems.Weapons
 
         public void Run()
         {
-            //throw new System.NotImplementedException();
+            foreach (var i in _laserBulletComponent)
+            {
+                ref var bulet = ref _laserBulletComponent.Get1(i);
+                bulet.Run();
+            }
         }
     }
 

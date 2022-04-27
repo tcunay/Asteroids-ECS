@@ -8,6 +8,7 @@ namespace AteroidsECS.Systems.Weapons
 {
     public class PlayerWeaponShootEventSystem : IEcsRunSystem
     {
+        private EcsWorld _world;
         private EcsFilter<PlayerShootComponent> _filterPlayer;
         private EcsFilter<BulletWeaponShootEvent> _defaultWeaponfilter;
         private EcsFilter<LaserWeaponShootEvent> _laserWeaponfilter;
@@ -33,11 +34,14 @@ namespace AteroidsECS.Systems.Weapons
         private void Shoot(Type shootType, ref PlayerShootComponent shootComponent)
         {
             if (shootType == typeof(BulletWeaponShootEvent))
-                shootComponent.BuletWeapon.Shoot();
+                shootComponent.BuletWeapon.Shoot(_world.NewEntity());
             else if (shootType == typeof(LaserWeaponShootEvent))
-                shootComponent.LaserWeapon.Shoot();
+                shootComponent.LaserWeapon.Shoot(_world.NewEntity());
             else
+            {
                 throw new InvalidOperationException();
+            }
+                
         }
     }
 }

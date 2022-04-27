@@ -1,4 +1,5 @@
 ﻿using AteroidsECS.Factories;
+using AteroidsECS.MonoBehaviours.MonoEntities;
 using AteroidsECS.ScriptableObjects;
 using Leopotam.Ecs;
 using UnityEngine;
@@ -9,24 +10,38 @@ namespace AteroidsECS.Components.Weapon
     {
         private readonly EcsWorld _world;
         private readonly PrefabFactory _factory;
-        private readonly WeaponData _weaponData;
+        private readonly DefaultWeaponData _defaultWeaponData;
         private readonly Transform _spawnPoint;
         private readonly Vector2 _direction;
 
-        public DefaultWeaponComponent(EcsWorld world, PrefabFactory factory, WeaponData weaponData,
+        public DefaultWeaponComponent(EcsWorld world, PrefabFactory factory, DefaultWeaponData defaultWeaponData,
             Transform spawnPoint, Vector2 direction)
         {
             _world = world;
             _factory = factory;
-            _weaponData = weaponData;
+            _defaultWeaponData = defaultWeaponData;
             _spawnPoint = spawnPoint;
             _direction = direction;
         }
 
-        public void Shoot()
+        public void Shoot(EcsEntity bullet)
         {
-            var bullet = _world.NewEntity();
-            bullet.Replace(new DefaultBulletComponent(_weaponData, _factory, _spawnPoint, _direction));
+            bullet.Replace(new DefaultBulletComponent(_defaultWeaponData, _factory, _spawnPoint, _direction));
+        }
+    }
+
+    public struct LaserWeaponComponent : IWeaponComponent
+    {
+        public LaserWeaponComponent(LineRendererMonoEntity bullet)
+        {
+            Bullet = bullet;
+        }
+
+        private LineRendererMonoEntity Bullet { get; }
+
+        public void Shoot(EcsEntity bullet)
+        {
+            bullet.Replace(new LaserBulletComponent(Bullet));
         }
     }
 }

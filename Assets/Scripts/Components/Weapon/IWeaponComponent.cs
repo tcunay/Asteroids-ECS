@@ -4,6 +4,6 @@ namespace AteroidsECS.Components.Weapon
 {
     public interface IWeaponComponent
     {
-        void Shoot();
+        void Shoot(EcsEntity bullet);
     }
 }

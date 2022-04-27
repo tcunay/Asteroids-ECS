@@ -12,7 +12,8 @@ namespace AteroidsECS.MonoBehaviours
     {
         [SerializeField] private PlayerData _playerData;
         [SerializeField] private PlayerSpawnPoint _playerSpawnPoint;
-        [SerializeField] private WeaponData _bulletData;
+        [SerializeField] private DefaultWeaponData _bulletData;
+        [SerializeField] private LaserWeaponData _laserData;
 
         private EcsWorld _world;
         private EcsSystems _initSystems;
@@ -40,7 +41,7 @@ namespace AteroidsECS.MonoBehaviours
             _factory = new PrefabFactory();
 
             IEntitySystems shootSystems = new WeaponsSystems(_world, _factory);
-            IEntitySystems playerSystems = new PlayerSystems(_world, _playerData, _playerSpawnPoint, _factory, _bulletData);
+            IEntitySystems playerSystems = new PlayerSystems(_world, _playerData, _playerSpawnPoint, _factory, _bulletData, _laserData);
 
             InitSystems(playerSystems, shootSystems);
         }

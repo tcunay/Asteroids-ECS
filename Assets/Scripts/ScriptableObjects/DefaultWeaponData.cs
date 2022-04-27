@@ -1,11 +1,10 @@
-﻿using AteroidsECS.MonoBehaviours;
+﻿using UnityEngine;
 using AteroidsECS.MonoBehaviours.MonoEntities;
-using UnityEngine;
 
 namespace AteroidsECS.ScriptableObjects
 {
     [CreateAssetMenu]
-    public class WeaponData : ScriptableObject, IBulletBase
+    public class DefaultWeaponData : ScriptableObject, IBulletBase
     {
         [SerializeField] private MonoEntity _defaultBulletPrefab;
         [SerializeField] private float _speed;

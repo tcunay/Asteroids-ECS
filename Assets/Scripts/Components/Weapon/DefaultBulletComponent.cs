@@ -11,9 +11,10 @@ namespace AteroidsECS.Components.Weapon
     {
         private readonly LineRendererMonoEntity _bullet;
         
-        public LaserBulletComponent(LineRendererMonoEntity bullet, PrefabFactory factory)
+        public LaserBulletComponent(LineRendererMonoEntity bullet)
         {
             _bullet = bullet;
+            Distance = 10;
             Damage = 0;
             Speed = 0;
             MaxLifetime = 0;
@@ -23,9 +24,38 @@ namespace AteroidsECS.Components.Weapon
         public int Damage { get; }
         public float Speed { get; }
         public float MaxLifetime { get; }
+        public float Distance { get; }
+        
         public void Run()
         {
-            throw new NotImplementedException();
+            var direction = _bullet.Transform.up;
+            var position = _bullet.Transform.position;
+            
+            CastRay(position, direction * Distance);
+            RenderLine(position, direction * Distance);
+        }
+        
+        private void CastRay(Vector3 startPosition, Vector3 endPosition)
+        {
+            RaycastHit2D[] hits = Physics2D.RaycastAll(startPosition, endPosition);
+            foreach (var hit in hits)
+            {
+                /*if (hit.collider.TryGetComponent(out Enemy enemy))
+                {
+                    Destroy(enemy.gameObject);
+                    ReportKilled();
+                }*/
+            }
+
+#if UNITY_EDITOR
+            Debug.DrawRay(startPosition, endPosition);
+#endif
+        }
+
+        private void RenderLine(Vector3 startPosition, Vector3 endPosition)
+        {
+            _bullet.LineRenderer.SetPosition(0, startPosition);
+            _bullet.LineRenderer.SetPosition(1, endPosition);
         }
     }
     
@@ -34,24 +64,24 @@ namespace AteroidsECS.Components.Weapon
         private readonly MonoEntity _bullet;
         private readonly PrefabFactory _factory;
 
-        public DefaultBulletComponent(WeaponData weaponData, PrefabFactory factory, Transform spawnPoint,
+        public DefaultBulletComponent(DefaultWeaponData defaultWeaponData, PrefabFactory factory, Transform spawnPoint,
             Vector2 direction)
         {
-            if (weaponData == null || factory == null || spawnPoint == null)
+            if (defaultWeaponData == null || factory == null || spawnPoint == null)
             {
                 Debug.LogError(new ArgumentNullException());
             }
 
             _factory = factory;
-            var spawnData = new SpawnPrefab<MonoEntity>(weaponData.DefaultBulletPrefab,
+            var spawnData = new SpawnPrefab<MonoEntity>(defaultWeaponData.DefaultBulletPrefab,
                 spawnPoint.position, spawnPoint.rotation);
             
             _bullet = _factory.Create(spawnData);
             
             Direction = direction;
-            Damage = weaponData.Damage;
-            Speed = weaponData.Speed;
-            MaxLifetime = weaponData.MaxLifetime;
+            Damage = defaultWeaponData.Damage;
+            Speed = defaultWeaponData.Speed;
+            MaxLifetime = defaultWeaponData.MaxLifetime;
             CreateTime = Time.time;
             Died = null;
         }

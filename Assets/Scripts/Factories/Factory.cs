@@ -14,6 +14,13 @@ namespace AteroidsECS.Factories
             return monoEntity;
         }
 
+        public T Create<T>(T monoEntityPrefab, Transform parent) where T : MonoEntity
+        {
+            var monoEntity = Object.Instantiate(monoEntityPrefab, parent);
+            monoEntity.Init();
+            return monoEntity;
+        }
+
         public void Destroy(MonoEntity monoEntity ,float destroyTime = 0)
         {
             monoEntity.Destroy(destroyTime);
