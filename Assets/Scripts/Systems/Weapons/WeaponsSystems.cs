@@ -23,14 +23,9 @@ namespace AteroidsECS.Systems.Weapons
         public IEcsRunSystem FixedUpdateSystems { get; }
     }
 
-    public class LaserShootSystem : IEcsInitSystem, IEcsRunSystem
+    public class LaserShootSystem : IEcsRunSystem
     {
         private EcsFilter<LaserBulletComponent> _laserBulletComponent;
-
-        public void Init()
-        {
-            //throw new System.NotImplementedException();
-        }
 
         public void Run()
         {
