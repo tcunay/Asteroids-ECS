@@ -28,6 +28,7 @@ namespace AteroidsECS.Components.Weapon
         
         public void Run()
         {
+            _bullet.LineRenderer.enabled = true;
             var position = _bullet.Transform.position;
             var distanceDirection = _bullet.Transform.up * Distance;
 
