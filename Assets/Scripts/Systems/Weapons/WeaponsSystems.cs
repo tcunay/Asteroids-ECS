@@ -2,6 +2,7 @@
 using AteroidsECS.Components.Weapon;
 using AteroidsECS.Events.Shoot;
 using AteroidsECS.Factories;
+using UnityEngine;
 
 namespace AteroidsECS.Systems.Weapons
 {
@@ -32,7 +33,15 @@ namespace AteroidsECS.Systems.Weapons
             foreach (var i in _laserBulletComponent)
             {
                 ref var bulet = ref _laserBulletComponent.Get1(i);
-                bulet.Run();
+                if (Time.time - bulet.CreateTime <= bulet.MaxLifetime)
+                {
+                    bulet.Run();
+                }
+                else
+                {
+                    bulet.TurnOff();
+                }
+
             }
         }
     }

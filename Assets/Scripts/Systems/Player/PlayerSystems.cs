@@ -21,7 +21,7 @@ namespace AteroidsECS.Systems.Player
             InitSystems = new EcsSystems(world).Add(new PlayerInitSystem()).Inject(playerData)
                 .Inject(playerPrefab).Inject(factory).Inject(defaultWeaponData).Inject(laserWeaponData);
             UpdateSystems = new EcsSystems(world).Add(new PlayerInputSystem()).Add(new PlayerWeaponShootEventSystem())
-                .OneFrame<BulletWeaponShootEvent>().OneFrame<LaserWeaponShootEvent>();//
+                .OneFrame<BulletWeaponShootEvent>().OneFrame<LaserWeaponShootEvent>();
             FixedUpdateSystems = new EcsSystems(world).Add(new PlayerMoveSystem())
                 .OneFrame<MoveEvent>();
         }

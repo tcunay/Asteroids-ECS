@@ -16,13 +16,15 @@ namespace AteroidsECS.Components.Weapon
             Distance = 20;
             Damage = 0;
             Speed = 0;
-            MaxLifetime = 0;
+            MaxLifetime = 5;
+            CreateTime = Time.time;
         }
         
         public int Damage { get; }
         public float Speed { get; }
         public float MaxLifetime { get; }
         public float Distance { get; }
+        public float CreateTime { get; }
         
         public void Run()
         {
@@ -31,6 +33,11 @@ namespace AteroidsECS.Components.Weapon
 
             CastRay(position, distanceDirection);
             RenderLine(position, position + distanceDirection);
+        }
+
+        public void TurnOff()
+        {
+            _bullet.LineRenderer.enabled = false;
         }
         
         private void CastRay(Vector3 startPosition, Vector3 endPosition)
@@ -51,6 +58,7 @@ namespace AteroidsECS.Components.Weapon
 
         private void RenderLine(Vector3 startPosition, Vector3 endPosition)
         {
+            _bullet.enabled = true;
             _bullet.LineRenderer.SetPosition(1, startPosition);
             _bullet.LineRenderer.SetPosition(0, endPosition);
         }
