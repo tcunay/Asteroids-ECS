@@ -1,6 +1,6 @@
-﻿using AteroidsECS.MonoBehaviours;
+﻿using UnityEngine;
 using AteroidsECS.MonoBehaviours.MonoEntities;
-using UnityEngine;
+using Leopotam.Ecs;
 using Object = UnityEngine.Object;
 
 namespace AteroidsECS.Factories
@@ -10,14 +10,12 @@ namespace AteroidsECS.Factories
         public T Create<T>(SpawnPrefab<T> spawnData) where T : MonoEntity
         {
             var monoEntity = Object.Instantiate(spawnData.Prefab, spawnData.Position, spawnData.Rotation);
-            monoEntity.Init();
             return monoEntity;
         }
 
         public T Create<T>(T monoEntityPrefab, Transform parent) where T : MonoEntity
         {
             var monoEntity = Object.Instantiate(monoEntityPrefab, parent);
-            monoEntity.Init();
             return monoEntity;
         }
 

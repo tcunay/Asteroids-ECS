@@ -34,14 +34,9 @@ namespace AteroidsECS.Systems.Weapons
             {
                 ref var bulet = ref _laserBulletComponent.Get1(i);
                 if (Time.time - bulet.CreateTime <= bulet.MaxLifetime)
-                {
                     bulet.Run();
-                }
                 else
-                {
                     bulet.TurnOff();
-                }
-
             }
         }
     }

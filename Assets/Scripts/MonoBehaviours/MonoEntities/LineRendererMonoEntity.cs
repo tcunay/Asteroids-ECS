@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Leopotam.Ecs;
+using UnityEngine;
 
 namespace AteroidsECS.MonoBehaviours.MonoEntities
 {
@@ -7,9 +8,9 @@ namespace AteroidsECS.MonoBehaviours.MonoEntities
     {
         public LineRenderer LineRenderer { get; private set; }
         
-        public override void Init()
+        public override void Init(EcsEntity entity)
         {
-            base.Init();
+            base.Init(entity);
             LineRenderer = GetComponent<LineRenderer>();
         }
     }

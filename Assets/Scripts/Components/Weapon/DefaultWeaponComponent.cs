@@ -8,16 +8,14 @@ namespace AteroidsECS.Components.Weapon
 {
     public struct DefaultWeaponComponent : IWeaponComponent
     {
-        private readonly EcsWorld _world;
         private readonly PrefabFactory _factory;
         private readonly DefaultWeaponData _defaultWeaponData;
         private readonly Transform _spawnPoint;
         private readonly Vector2 _direction;
 
-        public DefaultWeaponComponent(EcsWorld world, PrefabFactory factory, DefaultWeaponData defaultWeaponData,
+        public DefaultWeaponComponent(DefaultWeaponData defaultWeaponData, PrefabFactory factory,
             Transform spawnPoint, Vector2 direction)
         {
-            _world = world;
             _factory = factory;
             _defaultWeaponData = defaultWeaponData;
             _spawnPoint = spawnPoint;
@@ -32,15 +30,16 @@ namespace AteroidsECS.Components.Weapon
 
     public struct LaserWeaponComponent : IWeaponComponent
     {
-        public LaserWeaponComponent(LineRendererMonoEntity bullet)
+        public LaserWeaponComponent(LaserWeaponData weaponData, PrefabFactory prefabFactory, Transform parent)
         {
-            Bullet = bullet;
+            Bullet = prefabFactory.Create(weaponData.LaserBulletPrefab, parent);
         }
 
         private LineRendererMonoEntity Bullet { get; }
 
         public void Shoot(EcsEntity bullet)
         {
+            Bullet.Init(bullet);
             bullet.Replace(new LaserBulletComponent(Bullet));
         }
     }
